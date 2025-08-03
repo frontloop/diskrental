@@ -11,6 +11,6 @@ public interface RentalRepository extends MongoRepository<Rental, String> {
 
     List<Rental> findAllByOrderByIdDesc();
 
-    List<Rental> findByAvailableTrue();
+    List<Rental> findByClosedFalse();
 
 }

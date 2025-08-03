@@ -16,5 +16,5 @@ public class Store {
     private String name;
 
     @OneToOne
-    private Addres addres;
+    private Address addres;
 }

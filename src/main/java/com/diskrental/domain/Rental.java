@@ -24,7 +24,7 @@ public class Rental {
 
     private LocalDateTime returnDate;
 
-    private boolean available;
+    private boolean closed;
 
     @OneToOne
     private Store originStore;

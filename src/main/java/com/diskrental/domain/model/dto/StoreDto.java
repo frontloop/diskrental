@@ -1,6 +1,6 @@
 package com.diskrental.domain.model.dto;
 
-import com.diskrental.domain.Addres;
+import com.diskrental.domain.Address;
 import com.diskrental.domain.Store;
 import lombok.*;
 
@@ -14,7 +14,7 @@ public class StoreDto {
 
     private String name;
 
-    private Addres addres;
+    private Address addres;
 
     public StoreDto(Store store) {
         this.id = store.getId();

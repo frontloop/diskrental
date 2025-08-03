@@ -22,7 +22,7 @@ public class RentalDto {
 
     private LocalDateTime returnDate;
 
-    private boolean available;
+    private boolean closed;
 
     public RentalDto(Rental rental) {
         this.id = rental.getId();
@@ -30,6 +30,6 @@ public class RentalDto {
         this.rentStartDate = rental.getRentStartDate();
         this.plannedReturnDate = rental.getPlannedReturnDate();
         this.returnDate = rental.getReturnDate();
-        this.available = rental.isAvailable();
+        this.closed = rental.isClosed();
     }
 }

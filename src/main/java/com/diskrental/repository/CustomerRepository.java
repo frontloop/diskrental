@@ -2,7 +2,7 @@ package com.diskrental.repository;
 
 import java.util.List;
 
-import com.diskrental.Customer;
+import com.diskrental.domain.Customer;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface CustomerRepository extends MongoRepository<Customer, String> {

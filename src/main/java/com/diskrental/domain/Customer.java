@@ -1,4 +1,4 @@
-package com.diskrental;
+package com.diskrental.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +16,7 @@ public class Customer {
     private Integer cNumber;
     private String firstName;
     private String lastName;
+    private Address address;
 
     public Customer() {}
 

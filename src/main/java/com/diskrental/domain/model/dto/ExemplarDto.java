@@ -23,6 +23,8 @@ public class ExemplarDto {
 
     private Store currentStore;
 
+    private Boolean available;
+
     public ExemplarDto(Exemplar exemplar) {
         this.id = exemplar.getId();
         this.item = new ItemDto(exemplar.getItem());
