@@ -9,4 +9,8 @@ public interface RentalRepository extends MongoRepository<Rental, String> {
 
     public List<Rental> findByCustomerCNumber(Integer cNumber);
 
+    List<Rental> findAllByOrderByIdDesc();
+
+    List<Rental> findByAvailableTrue();
+
 }

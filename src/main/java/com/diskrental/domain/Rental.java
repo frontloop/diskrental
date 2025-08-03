@@ -18,11 +18,13 @@ public class Rental {
     @OneToOne
     private Exemplar exemplar;
 
-    private LocalDateTime rented;
+    private LocalDateTime rentStartDate;
 
-    private LocalDateTime plannedReturn;
+    private LocalDateTime plannedReturnDate;
 
     private LocalDateTime returnDate;
+
+    private boolean available;
 
     @OneToOne
     private Store originStore;

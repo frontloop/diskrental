@@ -1,13 +1,12 @@
 package com.diskrental.domain.model.dto;
 
 import com.diskrental.domain.Exemplar;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.diskrental.domain.Store;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -21,6 +20,8 @@ public class ExemplarDto {
     private Integer condition;
 
     private LocalDateTime inventoriedDate;
+
+    private Store currentStore;
 
     public ExemplarDto(Exemplar exemplar) {
         this.id = exemplar.getId();
