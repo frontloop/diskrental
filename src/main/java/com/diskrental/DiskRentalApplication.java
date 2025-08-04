@@ -44,6 +44,7 @@ public class DiskRentalApplication implements CommandLineRunner {
         storeRepository.deleteAll();
         rentalRepository.deleteAll();
         itemRepository.deleteAll();
+        exemplarRepository.deleteAll();
 
         Store store1 = storeRepository.save(new Store(null, "Store 111", addressRepository.save(new Address(null, "Kiefernweg 44", "11111", "Berlin"))));
         Store store2 = storeRepository.save(new Store(null, "Store 222", addressRepository.save(new Address(null, "Blumengasse 8", "22222", "Bad Hersfeld"))));
@@ -69,6 +70,14 @@ public class DiskRentalApplication implements CommandLineRunner {
 
         rentalRepository.save(new Rental(null, exemplar1, customer1, LocalDateTime.now(), LocalDateTime.now().plusDays(2), null, false, store1, null));
         rentalRepository.save(new Rental(null, exemplar2, customer2, LocalDateTime.now(), LocalDateTime.now().plusDays(2), null, false, store1, null));
+
+        System.out.println("All exemplars:");
+        System.out.println("-------------------------------");
+        for (Exemplar exemplar : exemplarRepository.findAllByOrderByIdDesc()) {
+            System.out.println(exemplar.getId() + " - " + exemplar.getIdentificationNumber());
+        }
+        System.out.println();
+
 
         List<Rental> notClosed = rentalRepository.findByExemplarIdentificationNumberAndClosedIsFalse(exemplar1.getIdentificationNumber());
 
