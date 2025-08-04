@@ -12,12 +12,15 @@ import lombok.*;
 public class StoreDto {
     private String id;
 
+    private Integer number;
+
     private String name;
 
     private AddressDto address;
 
     public StoreDto(Store store) {
         this.id = store.getId();
+        this.number = store.getNumber();
         this.name = store.getName();
         this.address = new AddressDto(store.getAddress());
     }

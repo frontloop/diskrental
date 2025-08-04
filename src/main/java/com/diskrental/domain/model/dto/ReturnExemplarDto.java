@@ -11,8 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-public class RentalPostDto {
-    private Integer customerNumber;
+public class ReturnExemplarDto {
     private UUID exemplarIdentificationNumber;
-    private Integer rentalDuration;
+    private Integer storeNumber;
 }

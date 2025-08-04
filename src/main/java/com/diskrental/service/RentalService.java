@@ -3,23 +3,22 @@ package com.diskrental.service;
 import com.diskrental.domain.Customer;
 import com.diskrental.domain.Exemplar;
 import com.diskrental.domain.Rental;
+import com.diskrental.domain.Store;
 import com.diskrental.domain.model.dto.RentalDto;
 import com.diskrental.domain.model.dto.RentalPostDto;
+import com.diskrental.domain.model.dto.ReturnExemplarDto;
 import com.diskrental.repository.CustomerRepository;
 import com.diskrental.repository.ExemplarRepository;
 import com.diskrental.repository.RentalRepository;
-import org.apache.coyote.Response;
+import com.diskrental.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -33,18 +32,21 @@ public class RentalService {
     private CustomerRepository customerRepository;
 
     @Autowired
+    private StoreRepository storeRepository;
+
+    @Autowired
     private ExemplarRepository exemplarRepository;
 
     @Transactional
-    public ResponseEntity<RentalDto> create(RentalPostDto postDto) {
-        List<Rental> foundOpenedRental = rentalRepository.findByExemplarIdentificationNumberAndClosedIsFalse(postDto.getIdentificationNumber());
+    public Rental create(RentalPostDto postDto) {
+        List<Rental> foundOpenedRental = rentalRepository.findByExemplarIdentificationNumberAndClosedIsFalse(postDto.getExemplarIdentificationNumber());
         if (foundOpenedRental.isEmpty()) {
             Rental rental = new Rental();
 
             Customer customer = customerRepository.findByNumber(postDto.getCustomerNumber());
             rental.setCustomer(customer);
 
-            Exemplar exemplar = exemplarRepository.findByIdentificationNumber(postDto.getIdentificationNumber());
+            Exemplar exemplar = exemplarRepository.findByIdentificationNumber(postDto.getExemplarIdentificationNumber());
             rental.setExemplar(exemplar);
 
             rental.setRentStartDate(LocalDateTime.now());
@@ -59,11 +61,28 @@ public class RentalService {
 
             UUID uuid = UUID.randomUUID();
 
-            return ResponseEntity.ok(new RentalDto(savedRental));
+            return savedRental;
         }
 
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(null);
+        return null;
+    }
+
+    @Transactional
+    public  Rental returnExemplar(ReturnExemplarDto returnExemplar) {
+        List<Rental> rentalList = rentalRepository.findByExemplarIdentificationNumberAndClosedIsFalse(returnExemplar.getExemplarIdentificationNumber());
+
+        if (rentalList.size() == 1) {
+            Rental rental = rentalList.getFirst();
+
+            Store store = storeRepository.findByNumber(returnExemplar.getStoreNumber());
+            rental.setReturnStore(store);
+
+            rental.setReturnDate(LocalDateTime.now());
+
+            return rentalRepository.save(rental);
+        }
+
+        return null;
     }
 
     @Transactional
