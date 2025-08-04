@@ -1,5 +1,6 @@
 package com.diskrental.domain;
 
+import com.diskrental.domain.model.dto.ItemDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,8 +19,9 @@ public class Item {
 
     private String title;
 
-    public Item(String type, String title) {
-        this.type = type;
-        this.title = title;
+    public Item(ItemDto itemDto) {
+        this.id = itemDto.getId();
+        this.type = itemDto.getType();
+        this.title = itemDto.getType();
     }
 }

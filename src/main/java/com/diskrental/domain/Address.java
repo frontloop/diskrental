@@ -1,5 +1,6 @@
 package com.diskrental.domain;
 
+import com.diskrental.domain.model.dto.AddressDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,11 @@ public class Address {
     private String street;
     private String zipCode;
     private String city;
+
+    public Address(AddressDto addressDto) {
+        this.id = addressDto.getId();
+        this.street = addressDto.getStreet();
+        this.zipCode = addressDto.getZipCode();
+        this.city = addressDto.getCity();
+    }
 }

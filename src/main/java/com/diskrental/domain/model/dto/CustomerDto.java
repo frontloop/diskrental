@@ -11,13 +11,13 @@ import lombok.*;
 public class CustomerDto {
     private String id;
 
-    private Integer cNumber;
+    private Integer number;
     private String firstName;
     private String lastName;
     private AddressDto address;
 
     public CustomerDto(Customer customer) {
-        this.cNumber = customer.getCNumber();
+        this.number = customer.getNumber();
         this.firstName = customer.getFirstName();
         this.lastName = customer.getLastName();
         this.address = new AddressDto(customer.getAddress());

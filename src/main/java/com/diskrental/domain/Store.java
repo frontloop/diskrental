@@ -1,11 +1,13 @@
 package com.diskrental.domain;
 
-import jakarta.persistence.OneToOne;
+import com.diskrental.domain.model.dto.StoreDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -15,6 +17,11 @@ public class Store {
 
     private String name;
 
-    @OneToOne
-    private Address addres;
+    private Address address;
+
+    public Store(StoreDto storeDto) {
+        this.id = storeDto.getId();
+        this.name = storeDto.getName();
+        this.address = new Address(storeDto.getAddress());
+    }
 }

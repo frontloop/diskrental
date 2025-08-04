@@ -14,11 +14,11 @@ public class StoreDto {
 
     private String name;
 
-    private Address addres;
+    private AddressDto address;
 
     public StoreDto(Store store) {
         this.id = store.getId();
         this.name = store.getName();
-        this.addres = store.getAddres();
+        this.address = new AddressDto(store.getAddress());
     }
 }
