@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @SpringBootApplication
 public class DiskRentalApplication implements CommandLineRunner {
@@ -50,16 +52,16 @@ public class DiskRentalApplication implements CommandLineRunner {
         Item item2 = itemRepository.save(new Item(null, "DVD", "Film 222"));
         Item item3 = itemRepository.save(new Item(null, "Blu-ray", "Film 333"));
 
-        Exemplar exemplar1 = exemplarRepository.save(new Exemplar(null, item1, 1, LocalDateTime.now().minusMonths(2), store1));
-        Exemplar exemplar2 = exemplarRepository.save(new Exemplar(null, item1, 2, LocalDateTime.now().minusMonths(2), store1));
-        Exemplar exemplar3 = exemplarRepository.save(new Exemplar(null, item1, 1, LocalDateTime.now().minusMonths(2), store1));
+        Exemplar exemplar1 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item1, 1, LocalDateTime.now().minusMonths(2), store1));
+        Exemplar exemplar2 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item1, 2, LocalDateTime.now().minusMonths(2), store1));
+        Exemplar exemplar3 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item1, 1, LocalDateTime.now().minusMonths(2), store1));
 
-        Exemplar exemplar4 = exemplarRepository.save(new Exemplar(null, item1, 1, LocalDateTime.now().minusMonths(2), store2));
-        Exemplar exemplar5 = exemplarRepository.save(new Exemplar(null, item1, 1, LocalDateTime.now().minusMonths(2), store2));
+        Exemplar exemplar4 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item1, 1, LocalDateTime.now().minusMonths(2), store2));
+        Exemplar exemplar5 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item1, 1, LocalDateTime.now().minusMonths(2), store2));
 
-        Exemplar exemplar6 = exemplarRepository.save(new Exemplar(null, item2, 1, LocalDateTime.now().minusMonths(1), store1));
-        Exemplar exemplar7 = exemplarRepository.save(new Exemplar(null, item2, 2, LocalDateTime.now().minusMonths(1), store1));
-        Exemplar exemplar8 = exemplarRepository.save(new Exemplar(null, item2, 1, LocalDateTime.now().minusMonths(1), store1));
+        Exemplar exemplar6 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item2, 1, LocalDateTime.now().minusMonths(1), store1));
+        Exemplar exemplar7 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item2, 2, LocalDateTime.now().minusMonths(1), store1));
+        Exemplar exemplar8 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item2, 1, LocalDateTime.now().minusMonths(1), store1));
 
         // save a couple of customers
         Customer customer1 = customerRepository.save(new Customer(111, "Alice", "Smith", addressRepository.save(new Address(null, "Goldbach 1", "11111", "Berlin"))));
@@ -68,14 +70,26 @@ public class DiskRentalApplication implements CommandLineRunner {
         rentalRepository.save(new Rental(null, exemplar1, customer1, LocalDateTime.now(), LocalDateTime.now().plusDays(2), null, false, store1, null));
         rentalRepository.save(new Rental(null, exemplar2, customer2, LocalDateTime.now(), LocalDateTime.now().plusDays(2), null, false, store1, null));
 
-        rentalRepository.findByCustomerNumber(111);
+        List<Rental> notClosed = rentalRepository.findByExemplarIdentificationNumberAndClosedIsFalse(exemplar1.getIdentificationNumber());
+
+        System.out.println("Not closed rental found:");
+        System.out.println("-------------------------------");
+        System.out.println(notClosed.size());
+
+        System.out.println();
 
         System.out.println("Rentals found with customer number 111:");
         System.out.println("-------------------------------");
-        for (Rental rental : rentalRepository.findByCustomerNumber(111)) {
+        for (Rental rental : rentalRepository.findByCustomerNumberAndClosedIsFalse(111)) {
             System.out.println(rental);
         }
         System.out.println();
+
+        List<Customer> foundCustomer = customerRepository.findByFirstNameAndLastName("Bob", "Smith");
+
+        System.out.println("Found customer by first and last name:");
+        System.out.println("-------------------------------");
+        System.out.println(foundCustomer.size());
 
         /*System.out.println("Customers found with findAll():");
         System.out.println("-------------------------------");

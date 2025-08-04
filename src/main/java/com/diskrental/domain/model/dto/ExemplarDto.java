@@ -5,6 +5,7 @@ import com.diskrental.domain.Store;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Builder
 @NoArgsConstructor
@@ -14,6 +15,8 @@ import java.time.LocalDateTime;
 public class ExemplarDto {
 
     private String id;
+
+    private UUID identificationNumber;
 
     private ItemDto item;
 
@@ -27,6 +30,7 @@ public class ExemplarDto {
 
     public ExemplarDto(Exemplar exemplar) {
         this.id = exemplar.getId();
+        this.identificationNumber = exemplar.getIdentificationNumber();
         this.item = new ItemDto(exemplar.getItem());
         this.condition = exemplar.getCondition();
     }

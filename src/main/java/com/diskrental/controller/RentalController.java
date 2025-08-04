@@ -1,6 +1,7 @@
 package com.diskrental.controller;
 
 import com.diskrental.domain.model.dto.RentalDto;
+import com.diskrental.domain.model.dto.RentalPostDto;
 import com.diskrental.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,10 +28,9 @@ public class RentalController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<RentalDto> create(@RequestBody RentalDto entity) {
-        var rental = this.rentalService.create(entity);
-        RentalDto dto = new RentalDto(rental);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<RentalDto> create(@RequestBody RentalPostDto entity) {
+        var rental = this.rentalService.create(entity).getBody();
+        return ResponseEntity.ok(rental);
     }
 
     @GetMapping("/{number}/open")

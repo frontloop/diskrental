@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,15 +37,15 @@ public class RentalService {
 
     @Transactional
     public ResponseEntity<RentalDto> create(RentalPostDto postDto) {
-        List<Rental> foundOpenedRental = rentalRepository.findByExemplarIdAndClosedFalse(postDto.getExemplarId());
+        List<Rental> foundOpenedRental = rentalRepository.findByExemplarIdentificationNumberAndClosedIsFalse(postDto.getIdentificationNumber());
         if (foundOpenedRental.isEmpty()) {
             Rental rental = new Rental();
 
             Customer customer = customerRepository.findByNumber(postDto.getCustomerNumber());
             rental.setCustomer(customer);
 
-            Optional<Exemplar> optional = exemplarRepository.findById(postDto.getExemplarId());
-            optional.ifPresent(rental::setExemplar);
+            Exemplar exemplar = exemplarRepository.findByIdentificationNumber(postDto.getIdentificationNumber());
+            rental.setExemplar(exemplar);
 
             rental.setRentStartDate(LocalDateTime.now());
 
@@ -56,6 +57,8 @@ public class RentalService {
 
             Rental savedRental = rentalRepository.save(rental);
 
+            UUID uuid = UUID.randomUUID();
+
             return ResponseEntity.ok(new RentalDto(savedRental));
         }
 
@@ -65,7 +68,7 @@ public class RentalService {
 
     @Transactional
     public List<RentalDto> getOpenRentalByCustomerNumber(Integer number) {
-        List<Rental> rental = rentalRepository.findByCustomerNumberAndClosedFalse(number);
+        List<Rental> rental = rentalRepository.findByCustomerNumberAndClosedIsFalse(number);
         return rental.stream().map(RentalDto::new).collect(Collectors.toList());
     }
 }
