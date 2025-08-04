@@ -78,6 +78,13 @@ public class DiskRentalApplication implements CommandLineRunner {
         }
         System.out.println();
 
+        System.out.println("All rental:");
+        System.out.println("-------------------------------");
+        for (Rental rental : rentalRepository.findAllByOrderByIdDesc()) {
+            System.out.println(rental.getId() + " - " + rental.getExemplar().getIdentificationNumber());
+        }
+        System.out.println();
+
 
         List<Rental> notClosed = rentalRepository.findByExemplarIdentificationNumberAndClosedIsFalse(exemplar1.getIdentificationNumber());
 

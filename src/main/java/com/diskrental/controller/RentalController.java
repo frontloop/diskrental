@@ -19,7 +19,7 @@ public class RentalController {
     @Autowired
     private RentalService rentalService;
 
-    @PostMapping("/create")
+    @PostMapping("/rent")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RentalDto> create(@RequestBody RentalPostDto entity) {
         if (entity == null) return new ResponseEntity<>(HttpStatus.CONFLICT);

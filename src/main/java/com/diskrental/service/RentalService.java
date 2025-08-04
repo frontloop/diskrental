@@ -12,8 +12,6 @@ import com.diskrental.repository.ExemplarRepository;
 import com.diskrental.repository.RentalRepository;
 import com.diskrental.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,7 +75,11 @@ public class RentalService {
             Store store = storeRepository.findByNumber(returnExemplar.getStoreNumber());
             rental.setReturnStore(store);
 
+            rental.getExemplar().setStore(store);
+
             rental.setReturnDate(LocalDateTime.now());
+
+            rental.setClosed(true);
 
             return rentalRepository.save(rental);
         }
