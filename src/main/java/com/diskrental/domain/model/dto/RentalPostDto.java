@@ -14,6 +14,5 @@ import java.time.LocalDateTime;
 public class RentalPostDto {
     private Integer customerNumber;
     private String exemplarId;
-    private LocalDateTime rentStartDate;
     private Integer rentalDuration;
 }
