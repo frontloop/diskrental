@@ -26,7 +26,7 @@ public class Exemplar {
 
     private LocalDateTime inventoriedDate;
 
-    private Store store;
+    private ItemStore store;
 
     public Exemplar(ExemplarDto exemplarDto) {
         this.id = exemplarDto.getId();

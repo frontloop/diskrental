@@ -1,11 +1,11 @@
 package com.diskrental.repository;
 
-import com.diskrental.domain.Store;
+import com.diskrental.domain.ItemStore;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface StoreRepository extends MongoRepository<Store, String> {
-    public List<Store> findAllByOrderByIdDesc();
-    public Store findByNumber(Integer number);
+public interface StoreRepository extends MongoRepository<ItemStore, String> {
+    public List<ItemStore> findAllByOrderByIdDesc();
+    public ItemStore findByStoreNumber(Integer storeNumber);
 }

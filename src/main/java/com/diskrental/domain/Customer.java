@@ -14,15 +14,15 @@ public class Customer {
     @Id
     private String id;
 
-    private Integer number;
+    private Integer userId;
     private String firstName;
     private String lastName;
     private Address address;
 
     public Customer() {}
 
-    public Customer(Integer number, String firstName, String lastName, Address address) {
-        this.number = number;
+    public Customer(Integer userId, String firstName, String lastName, Address address) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -30,7 +30,7 @@ public class Customer {
 
     public Customer(CustomerDto customer) {
         this.id = customer.getId();
-        this.number = customer.getNumber();
+        this.userId = customer.getUserId();
         this.firstName = customer.getFirstName();
         this.lastName = customer.getLastName();
         this.address = new Address(customer.getAddress());
@@ -39,7 +39,7 @@ public class Customer {
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%s, number='%s', firstName='%s', lastName='%s', address='%s']",
-                id, number, firstName, lastName, address);
+                "Customer[id=%s, customerId='%s', firstName='%s', lastName='%s', address='%s']",
+                id, userId, firstName, lastName, address);
     }
 }

@@ -1,5 +1,6 @@
 package com.diskrental.controller;
 
+import com.diskrental.domain.Rental;
 import com.diskrental.domain.model.dto.RentalDto;
 import com.diskrental.domain.model.dto.RentalPostDto;
 import com.diskrental.domain.model.dto.ReturnExemplarDto;
@@ -22,17 +23,17 @@ public class RentalController {
     @PostMapping("/rent")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RentalDto> create(@RequestBody RentalPostDto entity) {
-        if (entity == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
-        RentalDto rental = new RentalDto(this.rentalService.create(entity));
-        return ResponseEntity.ok(rental);
+        Rental rental = this.rentalService.create(entity);
+        if (rental == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
+        return ResponseEntity.ok(new RentalDto(this.rentalService.create(entity)));
     }
 
     @PutMapping("/return")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<RentalDto> returnExemplar(@RequestBody ReturnExemplarDto entity) {
-        if (entity == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
-        RentalDto rental = new RentalDto(this.rentalService.returnExemplar(entity));
-        return ResponseEntity.ok(rental);
+        Rental rental = this.rentalService.returnExemplar(entity);
+        if (rental == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
+        return ResponseEntity.ok( new RentalDto(this.rentalService.returnExemplar(entity)));
     }
 
     @GetMapping("/{number}/open")

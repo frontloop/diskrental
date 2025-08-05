@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class RentalPostDto {
-    private Integer customerNumber;
+    private Integer userId;
     private UUID exemplarIdentificationNumber;
     private Integer rentalDuration;
 }

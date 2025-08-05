@@ -3,7 +3,7 @@ package com.diskrental.service;
 import com.diskrental.domain.Customer;
 import com.diskrental.domain.Exemplar;
 import com.diskrental.domain.Rental;
-import com.diskrental.domain.Store;
+import com.diskrental.domain.ItemStore;
 import com.diskrental.domain.model.dto.RentalDto;
 import com.diskrental.domain.model.dto.RentalPostDto;
 import com.diskrental.domain.model.dto.ReturnExemplarDto;
@@ -41,7 +41,7 @@ public class RentalService {
         if (foundOpenedRental.isEmpty()) {
             Rental rental = new Rental();
 
-            Customer customer = customerRepository.findByNumber(postDto.getCustomerNumber());
+            Customer customer = customerRepository.findByUserId(postDto.getUserId());
             rental.setCustomer(customer);
 
             Exemplar exemplar = exemplarRepository.findByIdentificationNumber(postDto.getExemplarIdentificationNumber());
@@ -72,7 +72,7 @@ public class RentalService {
         if (rentalList.size() == 1) {
             Rental rental = rentalList.getFirst();
 
-            Store store = storeRepository.findByNumber(returnExemplar.getStoreNumber());
+            ItemStore store = storeRepository.findByStoreNumber(returnExemplar.getStoreNumber());
             rental.setReturnStore(store);
 
             rental.getExemplar().setStore(store);
@@ -89,7 +89,7 @@ public class RentalService {
 
     @Transactional
     public List<RentalDto> getOpenRentalByCustomerNumber(Integer number) {
-        List<Rental> rental = rentalRepository.findByCustomerNumberAndClosedIsFalse(number);
+        List<Rental> rental = rentalRepository.findByCustomerUserIdAndClosedIsFalse(number);
         return rental.stream().map(RentalDto::new).collect(Collectors.toList());
     }
 }

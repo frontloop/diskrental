@@ -1,7 +1,7 @@
 package com.diskrental.domain.model.dto;
 
 import com.diskrental.domain.Exemplar;
-import com.diskrental.domain.Store;
+import com.diskrental.domain.ItemStore;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -24,7 +24,7 @@ public class ExemplarDto {
 
     private LocalDateTime inventoriedDate;
 
-    private Store currentStore;
+    private ItemStore currentStore;
 
     private Boolean available;
 

@@ -1,7 +1,6 @@
 package com.diskrental.domain.model.dto;
 
 import com.diskrental.domain.Rental;
-import com.diskrental.domain.Store;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -27,9 +26,9 @@ public class RentalDto {
 
     private boolean closed;
 
-    private StoreDto originStore;
+    private ItemStoreDto originStore;
 
-    private StoreDto returnStore;
+    private ItemStoreDto returnStore;
 
     public RentalDto(Rental rental) {
         this.id = rental.getId();
@@ -39,7 +38,7 @@ public class RentalDto {
         this.plannedReturnDate = rental.getPlannedReturnDate();
         this.returnDate = rental.getReturnDate();
         this.closed = rental.isClosed();
-        this.originStore = new StoreDto(rental.getOriginStore());
-        this.returnStore = new StoreDto(rental.getOriginStore());
+        this.originStore = new ItemStoreDto(rental.getOriginStore());
+        this.returnStore = new ItemStoreDto(rental.getOriginStore());
     }
 }

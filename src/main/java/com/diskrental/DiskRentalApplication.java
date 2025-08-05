@@ -46,8 +46,8 @@ public class DiskRentalApplication implements CommandLineRunner {
         itemRepository.deleteAll();
         exemplarRepository.deleteAll();
 
-        Store store1 = storeRepository.save(new Store(null, 1, "Store 111", addressRepository.save(new Address(null, "Kiefernweg 44", "11111", "Berlin"))));
-        Store store2 = storeRepository.save(new Store(null, 2, "Store 222", addressRepository.save(new Address(null, "Blumengasse 8", "22222", "Bad Hersfeld"))));
+        ItemStore store1 = storeRepository.save(new ItemStore(null, 1, "Store 111", addressRepository.save(new Address(null, "Kiefernweg 44", "11111", "Berlin"))));
+        ItemStore store2 = storeRepository.save(new ItemStore(null, 2, "Store 222", addressRepository.save(new Address(null, "Blumengasse 8", "22222", "Bad Hersfeld"))));
 
         Item item1 = itemRepository.save(new Item(null, "Blu-ray", "Film 111"));
         Item item2 = itemRepository.save(new Item(null, "DVD", "Film 222"));
@@ -96,7 +96,7 @@ public class DiskRentalApplication implements CommandLineRunner {
 
         System.out.println("Rentals found with customer number 111:");
         System.out.println("-------------------------------");
-        for (Rental rental : rentalRepository.findByCustomerNumberAndClosedIsFalse(111)) {
+        for (Rental rental : rentalRepository.findByCustomerUserIdAndClosedIsFalse(111)) {
             System.out.println(rental);
         }
         System.out.println();

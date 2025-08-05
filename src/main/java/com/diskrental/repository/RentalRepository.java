@@ -11,9 +11,7 @@ public interface RentalRepository extends MongoRepository<Rental, String> {
 
     List<Rental> findAllByOrderByIdDesc();
 
-    List<Rental> findByCustomerNumber(Integer Number);
-
-    List<Rental> findByCustomerNumberAndClosedIsFalse(Integer Number);
+    List<Rental> findByCustomerUserIdAndClosedIsFalse(Integer userId);
 
     List<Rental> findByClosedIsFalse();
 
