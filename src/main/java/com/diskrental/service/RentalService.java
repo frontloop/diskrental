@@ -88,8 +88,14 @@ public class RentalService {
     }
 
     @Transactional
-    public List<RentalDto> getOpenRentalByCustomerNumber(Integer number) {
-        List<Rental> rental = rentalRepository.findByCustomerUserIdAndClosedIsFalse(number);
+    public List<RentalDto> getOpenRental() {
+        List<Rental> rental = rentalRepository.findByClosedIsFalse();
+        return rental.stream().map(RentalDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<RentalDto> getOpenRentalByUserId(Integer userId) {
+        List<Rental> rental = rentalRepository.findByCustomerUserIdAndClosedIsFalse(userId);
         return rental.stream().map(RentalDto::new).collect(Collectors.toList());
     }
 }

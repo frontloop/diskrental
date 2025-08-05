@@ -25,7 +25,7 @@ public class RentalController {
     public ResponseEntity<RentalDto> create(@RequestBody RentalPostDto entity) {
         Rental rental = this.rentalService.create(entity);
         if (rental == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
-        return ResponseEntity.ok(new RentalDto(this.rentalService.create(entity)));
+        return ResponseEntity.ok(new RentalDto(rental));
     }
 
     @PutMapping("/return")
@@ -33,12 +33,18 @@ public class RentalController {
     public ResponseEntity<RentalDto> returnExemplar(@RequestBody ReturnExemplarDto entity) {
         Rental rental = this.rentalService.returnExemplar(entity);
         if (rental == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
-        return ResponseEntity.ok( new RentalDto(this.rentalService.returnExemplar(entity)));
+        return ResponseEntity.ok(new RentalDto(rental));
+    }
+
+    @GetMapping("/open")
+    public ResponseEntity<List<RentalDto>> getOpenRental() {
+        List<RentalDto> dtos = this.rentalService.getOpenRental();
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{number}/open")
-    public ResponseEntity<List<RentalDto>> getOpenRentalByCustomerNumber(@PathVariable("number") final Integer number) {
-        List<RentalDto> dtos = this.rentalService.getOpenRentalByCustomerNumber(number);
+    public ResponseEntity<List<RentalDto>> getOpenRentalByUserId(@PathVariable("userId") final Integer userId) {
+        List<RentalDto> dtos = this.rentalService.getOpenRentalByUserId(userId);
         return ResponseEntity.ok(dtos);
     }
 
