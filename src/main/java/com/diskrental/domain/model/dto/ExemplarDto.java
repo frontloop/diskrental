@@ -33,5 +33,8 @@ public class ExemplarDto {
         this.identificationNumber = exemplar.getIdentificationNumber();
         this.item = new ItemDto(exemplar.getItem());
         this.condition = exemplar.getCondition();
+        this.currentStore = exemplar.getCurrentStore();
+        this.inventoriedDate = exemplar.getInventoriedDate();
+        this.available = exemplar.isAvailable();
     }
 }

@@ -31,11 +31,8 @@ public class RentalService {
     @Autowired
     private ItemRepository itemRepository;
 
-     @Autowired
-     private MongoTemplate mongoTemplate;
-
     @Transactional
-    public Rental create(RentalPostDto postDto) {
+    public Rental rent(RentalPostDto postDto) {
         List<Rental> foundOpenedRental = rentalRepository.findByExemplarIdentificationNumberAndClosedIsFalse(postDto.getExemplarIdentificationNumber());
         if (foundOpenedRental.isEmpty()) {
             Rental rental = new Rental();
@@ -46,11 +43,14 @@ public class RentalService {
             Exemplar exemplar = exemplarRepository.findByIdentificationNumber(postDto.getExemplarIdentificationNumber());
             rental.setExemplar(exemplar);
 
+            exemplar.setAvailable(false);
+            exemplarRepository.save(exemplar);
+
             rental.setRentStartDate(LocalDateTime.now());
 
             rental.setPlannedReturnDate(LocalDateTime.now().plusDays(postDto.getRentalDuration()));
 
-            rental.setOriginStore(exemplar.getStore());
+            rental.setOriginStore(exemplar.getCurrentStore());
 
             rental.setClosed(false);
 
@@ -74,11 +74,15 @@ public class RentalService {
             ItemStore store = storeRepository.findByStoreNumber(returnExemplar.getStoreNumber());
             rental.setReturnStore(store);
 
-            rental.getExemplar().setStore(store);
+            rental.getExemplar().setCurrentStore(store);
 
             rental.setReturnDate(LocalDateTime.now());
 
             rental.setClosed(true);
+
+            Exemplar exemplar = exemplarRepository.findByIdentificationNumber(rental.getExemplar().getIdentificationNumber());
+            exemplar.setAvailable(true);
+            exemplarRepository.save(exemplar);
 
             return rentalRepository.save(rental);
         }
@@ -91,6 +95,12 @@ public class RentalService {
         List<Item> rental = itemRepository.findAllByOrderByIdDesc();
         return rental.stream().map(ItemDto::new).collect(Collectors.toList());
     }
+    @Transactional
+    public List<ExemplarDto> getAvailableExemplars(String itemId) {
+        List<Exemplar> exemplars = exemplarRepository.findByItemIdAndAvailableIsTrue(itemId);
+        return exemplars.stream().map(ExemplarDto::new).collect(Collectors.toList());
+    }
+
 
     @Transactional
     public List<RentalDto> getOpenRental() {

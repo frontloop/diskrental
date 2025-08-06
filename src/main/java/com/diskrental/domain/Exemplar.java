@@ -26,7 +26,9 @@ public class Exemplar {
 
     private LocalDateTime inventoriedDate;
 
-    private ItemStore store;
+    private ItemStore currentStore;
+
+    private boolean available;
 
     public Exemplar(ExemplarDto exemplarDto) {
         this.id = exemplarDto.getId();
@@ -34,6 +36,8 @@ public class Exemplar {
         this.item = new Item(exemplarDto.getItem());
         this.condition = exemplarDto.getCondition();
         this.inventoriedDate = exemplarDto.getInventoriedDate();
+        this.currentStore = exemplarDto.getCurrentStore();
+        this.available = exemplarDto.getAvailable();
 
     }
 }

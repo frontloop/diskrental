@@ -21,7 +21,7 @@ public class RentalController {
     @PostMapping("/rent")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RentalDto> create(@RequestBody RentalPostDto entity) {
-        Rental rental = this.rentalService.create(entity);
+        Rental rental = this.rentalService.rent(entity);
         if (rental == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
         return ResponseEntity.ok(new RentalDto(rental));
     }
@@ -32,6 +32,12 @@ public class RentalController {
         Rental rental = this.rentalService.returnExemplar(entity);
         if (rental == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
         return ResponseEntity.ok(new RentalDto(rental));
+    }
+
+    @GetMapping("/{itemId}/available")
+    public ResponseEntity<List<ExemplarDto>> getAvailableExemplars(@PathVariable("itemId") final String itemId) {
+        List<ExemplarDto> dtos = this.rentalService.getAvailableExemplars(itemId);
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/open")
