@@ -1,9 +1,7 @@
 package com.diskrental.controller;
 
 import com.diskrental.domain.Rental;
-import com.diskrental.domain.model.dto.RentalDto;
-import com.diskrental.domain.model.dto.RentalPostDto;
-import com.diskrental.domain.model.dto.ReturnExemplarDto;
+import com.diskrental.domain.model.dto.*;
 import com.diskrental.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,10 +40,21 @@ public class RentalController {
         return ResponseEntity.ok(dtos);
     }
 
-    @GetMapping("/{number}/open")
+    @GetMapping("/{userId}/open")
     public ResponseEntity<List<RentalDto>> getOpenRentalByUserId(@PathVariable("userId") final Integer userId) {
         List<RentalDto> dtos = this.rentalService.getOpenRentalByUserId(userId);
         return ResponseEntity.ok(dtos);
     }
 
+    @GetMapping("/items")
+    public ResponseEntity<List<ItemDto>> getItems() {
+        List<ItemDto> dtos = this.rentalService.getItems();
+        return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/stores")
+    public ResponseEntity<List<ItemStoreDto>> getStores() {
+        List<ItemStoreDto> dtos = this.rentalService.getAllItemStores();
+        return ResponseEntity.ok(dtos);
+    }
 }
