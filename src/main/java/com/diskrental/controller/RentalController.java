@@ -34,7 +34,7 @@ public class RentalController {
         return ResponseEntity.ok(new RentalDto(rental));
     }
 
-    @GetMapping("/{itemId}/available")
+    @GetMapping("/exemplars/{itemId}/available")
     public ResponseEntity<List<ExemplarDto>> getAvailableExemplars(@PathVariable("itemId") final String itemId) {
         List<ExemplarDto> dtos = this.rentalService.getAvailableExemplars(itemId);
         return ResponseEntity.ok(dtos);
