@@ -17,6 +17,7 @@ public class CustomerDto {
     private AddressDto address;
 
     public CustomerDto(Customer customer) {
+        this.id = customer.getId();
         this.userId = customer.getUserId();
         this.firstName = customer.getFirstName();
         this.lastName = customer.getLastName();

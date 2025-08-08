@@ -1,11 +1,11 @@
 package com.diskrental.domain.model.dto;
 
 import com.diskrental.domain.Rental;
+import com.mongodb.lang.Nullable;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -26,6 +26,7 @@ public class RentalDto {
 
     private ArticleStoreDto originStore;
 
+    @Nullable
     private ArticleStoreDto returnStore;
 
     public RentalDto(Rental rental) {
@@ -36,6 +37,8 @@ public class RentalDto {
         this.returnDate = rental.getReturnDate();
         this.closed = rental.isClosed();
         this.originStore = new ArticleStoreDto(rental.getOriginStore());
-        this.returnStore = new ArticleStoreDto(rental.getOriginStore());
+        if (rental.getReturnStore() != null) {
+            this.returnStore = new ArticleStoreDto(rental.getReturnStore());
+        }
     }
 }

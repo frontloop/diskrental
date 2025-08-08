@@ -3,7 +3,6 @@ package com.diskrental.domain.model.dto;
 import com.diskrental.domain.ArticleStore;
 import lombok.*;
 
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

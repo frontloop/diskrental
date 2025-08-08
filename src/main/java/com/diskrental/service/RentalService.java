@@ -3,6 +3,7 @@ package com.diskrental.service;
 import com.diskrental.domain.*;
 import com.diskrental.domain.model.dto.*;
 import com.diskrental.repository.*;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,35 +31,39 @@ public class RentalService {
     @Autowired
     private ArticleRepository articleRepository;
 
+    private Customer currentLoginData;
+
+    public void loginAsCustomer(Customer customer) {
+        currentLoginData = customer;
+    }
+
     @Transactional
-    public Rental rent(RentalPostDto postDto) {
-        List<Rental> foundOpenedRental = rentalRepository.findByExemplarIdentificationNumberAndClosedIsFalse(postDto.getExemplarIdentificationNumber());
-        if (foundOpenedRental.isEmpty()) {
+    public Rental rentExemplar(UUID articleIdentificationNumber) {
+
             Rental rental = new Rental();
 
-            Customer customer = customerRepository.findByUserId(postDto.getUserId());
+            Customer customer = customerRepository.findByUserId(currentLoginData.getUserId());
             rental.setCustomer(customer);
 
-            Exemplar exemplar = exemplarRepository.findByIdentificationNumber(postDto.getExemplarIdentificationNumber());
-            rental.setExemplar(exemplar);
+            List<Exemplar> exemplars = exemplarRepository.findByArticleIdentificationNumberAndAvailableIsTrue(articleIdentificationNumber);
 
-            exemplar.setAvailable(false);
-            exemplarRepository.save(exemplar);
+            if (exemplars.isEmpty()) return null;
+
+            Exemplar selectedExemplar = exemplars.getFirst();
+
+            selectedExemplar.setAvailable(false);
+
+            Exemplar savedExemplar = exemplarRepository.save(selectedExemplar);
+
+            rental.setExemplar(savedExemplar);
 
             rental.setRentStartDate(LocalDateTime.now());
 
-            rental.setOriginStore(exemplar.getCurrentStore());
+            rental.setOriginStore(savedExemplar.getCurrentStore());
 
             rental.setClosed(false);
 
-            Rental savedRental = rentalRepository.save(rental);
-
-            UUID uuid = UUID.randomUUID();
-
-            return savedRental;
-        }
-
-        return null;
+            return rentalRepository.save(rental);
     }
 
     @Transactional
@@ -88,13 +93,20 @@ public class RentalService {
     }
 
     @Transactional
-    public List<ArticleDto> getArticles() {
-        List<Article> rental = articleRepository.findAllByOrderByIdDesc();
-        return rental.stream().map(ArticleDto::new).collect(Collectors.toList());
+    public ArticleDto getArticle(UUID identificationNumber) {
+        Article article = articleRepository.findByIdentificationNumber(identificationNumber);
+        return new ArticleDto(article);
     }
+
     @Transactional
-    public List<ExemplarDto> getAvailableExemplars(String articleId) {
-        List<Exemplar> exemplars = exemplarRepository.findByArticleIdAndAvailableIsTrue(articleId);
+    public List<ArticleDto> getArticles() {
+        List<Article> articles = articleRepository.findAllByOrderByIdDesc();
+        return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<ExemplarDto> getAvailableExemplars(UUID identificationNumber) {
+        List<Exemplar> exemplars = exemplarRepository.findByArticleIdentificationNumberAndAvailableIsTrue(identificationNumber);
         return exemplars.stream().map(ExemplarDto::new).collect(Collectors.toList());
     }
 

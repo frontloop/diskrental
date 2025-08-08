@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("${app.endpoint.api}/rental")
@@ -18,10 +19,10 @@ public class RentalController {
     @Autowired
     private RentalService rentalService;
 
-    @PostMapping("/rent")
+    @GetMapping("/rent/{articleIdentificationNumber}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<RentalDto> create(@RequestBody RentalPostDto entity) {
-        Rental rental = this.rentalService.rent(entity);
+    public ResponseEntity<RentalDto> create(@PathVariable("articleIdentificationNumber") final UUID articleIdentificationNumber) {
+        Rental rental = this.rentalService.rentExemplar(articleIdentificationNumber);
         if (rental == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
         return ResponseEntity.ok(new RentalDto(rental));
     }
@@ -34,9 +35,9 @@ public class RentalController {
         return ResponseEntity.ok(new RentalDto(rental));
     }
 
-    @GetMapping("/exemplars/{articleId}/available")
-    public ResponseEntity<List<ExemplarDto>> getAvailableExemplars(@PathVariable("articleId") final String articleId) {
-        List<ExemplarDto> dtos = this.rentalService.getAvailableExemplars(articleId);
+    @GetMapping("/exemplars/{articleIdentificationNumber}/available")
+    public ResponseEntity<List<ExemplarDto>> getAvailableExemplars(@PathVariable("articleIdentificationNumber") final UUID articleIdentificationNumber) {
+        List<ExemplarDto> dtos = this.rentalService.getAvailableExemplars(articleIdentificationNumber);
         return ResponseEntity.ok(dtos);
     }
 
@@ -50,6 +51,12 @@ public class RentalController {
     public ResponseEntity<List<RentalDto>> getOpenRentalByUserId(@PathVariable("userId") final Integer userId) {
         List<RentalDto> dtos = this.rentalService.getOpenRentalByUserId(userId);
         return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/article/{identificationNumber}")
+    public ResponseEntity<ArticleDto> getArticle(@PathVariable("identificationNumber") final UUID identificationNumber) {
+        ArticleDto dto = this.rentalService.getArticle(identificationNumber);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/articles")

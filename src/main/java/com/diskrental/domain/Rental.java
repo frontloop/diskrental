@@ -1,6 +1,7 @@
 package com.diskrental.domain;
 
 import com.diskrental.domain.model.dto.RentalDto;
+import com.mongodb.lang.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,7 @@ public class Rental {
 
     private ArticleStore originStore;
 
+    @Nullable
     private ArticleStore returnStore;
 
     public Rental(RentalDto rentalDto) {
