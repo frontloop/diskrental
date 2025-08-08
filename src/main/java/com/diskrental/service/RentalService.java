@@ -48,8 +48,6 @@ public class RentalService {
 
             rental.setRentStartDate(LocalDateTime.now());
 
-            rental.setPlannedReturnDate(LocalDateTime.now().plusDays(postDto.getRentalDuration()));
-
             rental.setOriginStore(exemplar.getCurrentStore());
 
             rental.setClosed(false);

@@ -23,8 +23,6 @@ public class Rental {
 
     private LocalDateTime rentStartDate;
 
-    private LocalDateTime plannedReturnDate;
-
     private LocalDateTime returnDate;
 
     private boolean closed;
@@ -38,7 +36,6 @@ public class Rental {
         this.exemplar = new Exemplar(rentalDto.getExemplar());
         this.customer = new Customer(rentalDto.getCustomer());
         this.rentStartDate = rentalDto.getRentStartDate();
-        this.plannedReturnDate = rentalDto.getPlannedReturnDate();
         this.returnDate = rentalDto.getReturnDate();
         this.closed = rentalDto.isClosed();
         this.originStore = new ItemStore(rentalDto.getOriginStore());
