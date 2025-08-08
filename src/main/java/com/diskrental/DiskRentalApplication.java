@@ -27,7 +27,7 @@ public class DiskRentalApplication implements CommandLineRunner {
     private StoreRepository storeRepository;
 
     @Autowired
-    private ItemRepository itemRepository;
+    private ArticleRepository articleRepository;
 
     @Autowired
     private ExemplarRepository exemplarRepository;
@@ -43,33 +43,33 @@ public class DiskRentalApplication implements CommandLineRunner {
         addressRepository.deleteAll();
         storeRepository.deleteAll();
         rentalRepository.deleteAll();
-        itemRepository.deleteAll();
+        articleRepository.deleteAll();
         exemplarRepository.deleteAll();
 
-        ItemStore store1 = storeRepository.save(new ItemStore(null, 1, "Store Eins", addressRepository.save(new Address(null, "Kiefernweg 44", "11111", "Berlin"))));
-        ItemStore store2 = storeRepository.save(new ItemStore(null, 2, "Store Zwei", addressRepository.save(new Address(null, "Blumengasse 8", "22222", "Bad Hersfeld"))));
+        ArticleStore store1 = storeRepository.save(new ArticleStore(null, 1, "Store Eins", addressRepository.save(new Address(null, "Kiefernweg 44", "11111", "Berlin"))));
+        ArticleStore store2 = storeRepository.save(new ArticleStore(null, 2, "Store Zwei", addressRepository.save(new Address(null, "Blumengasse 8", "22222", "Bad Hersfeld"))));
 
-        Item item1 = itemRepository.save(new Item(null, "Blu-ray", "Film 111"));
-        Item item2 = itemRepository.save(new Item(null, "DVD", "Film 222"));
-        Item item3 = itemRepository.save(new Item(null, "Blu-ray", "Film 333"));
+        Article article1 = articleRepository.save(new Article(null, "Blu-ray", "Film 111"));
+        Article article2 = articleRepository.save(new Article(null, "DVD", "Film 222"));
+        Article article3 = articleRepository.save(new Article(null, "Blu-ray", "Film 333"));
 
-        Exemplar exemplar1 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item1, 1, LocalDateTime.now().minusMonths(2), store1, false));
-        Exemplar exemplar2 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item1, 2, LocalDateTime.now().minusMonths(2), store1, false));
-        Exemplar exemplar3 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item1, 1, LocalDateTime.now().minusMonths(2), store1, true));
+        Exemplar exemplar1 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, false));
+        Exemplar exemplar2 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 2, LocalDateTime.now().minusMonths(2), store1, false));
+        Exemplar exemplar3 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, true));
 
-        Exemplar exemplar4 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item1, 1, LocalDateTime.now().minusMonths(2), store2, true));
-        Exemplar exemplar5 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item1, 1, LocalDateTime.now().minusMonths(2), store2, true));
+        Exemplar exemplar4 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store2, true));
+        Exemplar exemplar5 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store2, true));
 
-        Exemplar exemplar6 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item2, 1, LocalDateTime.now().minusMonths(1), store1, true));
-        Exemplar exemplar7 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item2, 2, LocalDateTime.now().minusMonths(1), store1, true));
-        Exemplar exemplar8 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), item2, 1, LocalDateTime.now().minusMonths(1), store1, true));
+        Exemplar exemplar6 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store1, true));
+        Exemplar exemplar7 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 2, LocalDateTime.now().minusMonths(1), store1, true));
+        Exemplar exemplar8 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store1, true));
 
         // save a couple of customers
         Customer customer1 = customerRepository.save(new Customer(111, "Alice", "Smith", addressRepository.save(new Address(null, "Goldbach 1", "11111", "Berlin"))));
         Customer customer2 = customerRepository.save(new Customer(222, "Bob", "Smith", addressRepository.save(new Address(null, "Lindenweg 33", "22222", "Bad Hersfeld"))));
 
-        rentalRepository.save(new Rental(null, exemplar1, customer1, LocalDateTime.now(), LocalDateTime.now().plusDays(2), null, false, store1, null));
-        rentalRepository.save(new Rental(null, exemplar2, customer2, LocalDateTime.now(), LocalDateTime.now().plusDays(2), null, false, store1, null));
+        rentalRepository.save(new Rental(null, exemplar1, customer1, LocalDateTime.now(), null, false, store1, null));
+        rentalRepository.save(new Rental(null, exemplar2, customer2, LocalDateTime.now(), null, false, store1, null));
 
         System.out.println("All exemplars:");
         System.out.println("-------------------------------");

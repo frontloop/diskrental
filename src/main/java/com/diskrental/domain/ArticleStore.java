@@ -1,6 +1,6 @@
 package com.diskrental.domain;
 
-import com.diskrental.domain.model.dto.ItemStoreDto;
+import com.diskrental.domain.model.dto.ArticleStoreDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ItemStore {
+public class ArticleStore {
     @Id
     private String id;
 
@@ -21,10 +21,10 @@ public class ItemStore {
 
     private Address address;
 
-    public ItemStore(ItemStoreDto itemStoreDto) {
-        this.id = itemStoreDto.getId();
-        this.storeNumber = itemStoreDto.getStoreNumber();
-        this.name = itemStoreDto.getName();
-        this.address = new Address(itemStoreDto.getAddress());
+    public ArticleStore(ArticleStoreDto articleStoreDto) {
+        this.id = articleStoreDto.getId();
+        this.storeNumber = articleStoreDto.getStoreNumber();
+        this.name = articleStoreDto.getName();
+        this.address = new Address(articleStoreDto.getAddress());
     }
 }

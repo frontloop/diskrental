@@ -8,8 +8,8 @@ import java.util.UUID;
 
 public interface ExemplarRepository extends MongoRepository<Exemplar, String> {
     public List<Exemplar> findAllByOrderByIdDesc();
-    public List<Exemplar> findByItemTitle(String title);
-    public List<Exemplar> findByItemId(String id);
-    public List<Exemplar> findByItemIdAndAvailableIsTrue(String itemId);
+    public List<Exemplar> findByArticleTitle(String title);
+    public List<Exemplar> findByArticleId(String id);
+    public List<Exemplar> findByArticleIdAndAvailableIsTrue(String articleId);
     public Exemplar findByIdentificationNumber(UUID identificationNumber);
 }

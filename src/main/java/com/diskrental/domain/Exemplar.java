@@ -20,20 +20,20 @@ public class Exemplar {
 
     private UUID identificationNumber;
 
-    private Item item;
+    private Article article;
 
     private Integer condition;
 
     private LocalDateTime inventoriedDate;
 
-    private ItemStore currentStore;
+    private ArticleStore currentStore;
 
     private boolean available;
 
     public Exemplar(ExemplarDto exemplarDto) {
         this.id = exemplarDto.getId();
         this.identificationNumber = exemplarDto.getIdentificationNumber();
-        this.item = new Item(exemplarDto.getItem());
+        this.article = new Article(exemplarDto.getArticle());
         this.condition = exemplarDto.getCondition();
         this.inventoriedDate = exemplarDto.getInventoriedDate();
         this.currentStore = exemplarDto.getCurrentStore();

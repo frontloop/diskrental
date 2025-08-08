@@ -34,9 +34,9 @@ public class RentalController {
         return ResponseEntity.ok(new RentalDto(rental));
     }
 
-    @GetMapping("/exemplars/{itemId}/available")
-    public ResponseEntity<List<ExemplarDto>> getAvailableExemplars(@PathVariable("itemId") final String itemId) {
-        List<ExemplarDto> dtos = this.rentalService.getAvailableExemplars(itemId);
+    @GetMapping("/exemplars/{articleId}/available")
+    public ResponseEntity<List<ExemplarDto>> getAvailableExemplars(@PathVariable("articleId") final String articleId) {
+        List<ExemplarDto> dtos = this.rentalService.getAvailableExemplars(articleId);
         return ResponseEntity.ok(dtos);
     }
 
@@ -52,15 +52,15 @@ public class RentalController {
         return ResponseEntity.ok(dtos);
     }
 
-    @GetMapping("/items")
-    public ResponseEntity<List<ItemDto>> getItems() {
-        List<ItemDto> dtos = this.rentalService.getItems();
+    @GetMapping("/articles")
+    public ResponseEntity<List<ArticleDto>> getArticles() {
+        List<ArticleDto> dtos = this.rentalService.getArticles();
         return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/stores")
-    public ResponseEntity<List<ItemStoreDto>> getStores() {
-        List<ItemStoreDto> dtos = this.rentalService.getAllItemStores();
+    public ResponseEntity<List<ArticleStoreDto>> getStores() {
+        List<ArticleStoreDto> dtos = this.rentalService.getAllArticleStores();
         return ResponseEntity.ok(dtos);
     }
 }

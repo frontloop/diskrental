@@ -1,6 +1,6 @@
 package com.diskrental.domain.model.dto;
 
-import com.diskrental.domain.ItemStore;
+import com.diskrental.domain.ArticleStore;
 import lombok.*;
 
 @Builder
@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ItemStoreDto {
+public class ArticleStoreDto {
     private String id;
 
     private Integer storeNumber;
@@ -17,7 +17,7 @@ public class ItemStoreDto {
 
     private AddressDto address;
 
-    public ItemStoreDto(ItemStore store) {
+    public ArticleStoreDto(ArticleStore store) {
         this.id = store.getId();
         this.storeNumber = store.getStoreNumber();
         this.name = store.getName();

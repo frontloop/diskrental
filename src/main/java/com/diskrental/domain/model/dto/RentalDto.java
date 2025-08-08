@@ -24,9 +24,9 @@ public class RentalDto {
 
     private boolean closed;
 
-    private ItemStoreDto originStore;
+    private ArticleStoreDto originStore;
 
-    private ItemStoreDto returnStore;
+    private ArticleStoreDto returnStore;
 
     public RentalDto(Rental rental) {
         this.id = rental.getId();
@@ -35,7 +35,7 @@ public class RentalDto {
         this.rentStartDate = rental.getRentStartDate();
         this.returnDate = rental.getReturnDate();
         this.closed = rental.isClosed();
-        this.originStore = new ItemStoreDto(rental.getOriginStore());
-        this.returnStore = new ItemStoreDto(rental.getOriginStore());
+        this.originStore = new ArticleStoreDto(rental.getOriginStore());
+        this.returnStore = new ArticleStoreDto(rental.getOriginStore());
     }
 }

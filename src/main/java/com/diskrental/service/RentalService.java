@@ -6,7 +6,6 @@ import com.diskrental.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,7 +28,7 @@ public class RentalService {
     private ExemplarRepository exemplarRepository;
 
     @Autowired
-    private ItemRepository itemRepository;
+    private ArticleRepository articleRepository;
 
     @Transactional
     public Rental rent(RentalPostDto postDto) {
@@ -69,7 +68,7 @@ public class RentalService {
         if (rentalList.size() == 1) {
             Rental rental = rentalList.getFirst();
 
-            ItemStore store = storeRepository.findByStoreNumber(returnExemplar.getStoreNumber());
+            ArticleStore store = storeRepository.findByStoreNumber(returnExemplar.getStoreNumber());
             rental.setReturnStore(store);
 
             rental.getExemplar().setCurrentStore(store);
@@ -89,13 +88,13 @@ public class RentalService {
     }
 
     @Transactional
-    public List<ItemDto> getItems() {
-        List<Item> rental = itemRepository.findAllByOrderByIdDesc();
-        return rental.stream().map(ItemDto::new).collect(Collectors.toList());
+    public List<ArticleDto> getArticles() {
+        List<Article> rental = articleRepository.findAllByOrderByIdDesc();
+        return rental.stream().map(ArticleDto::new).collect(Collectors.toList());
     }
     @Transactional
-    public List<ExemplarDto> getAvailableExemplars(String itemId) {
-        List<Exemplar> exemplars = exemplarRepository.findByItemIdAndAvailableIsTrue(itemId);
+    public List<ExemplarDto> getAvailableExemplars(String articleId) {
+        List<Exemplar> exemplars = exemplarRepository.findByArticleIdAndAvailableIsTrue(articleId);
         return exemplars.stream().map(ExemplarDto::new).collect(Collectors.toList());
     }
 
@@ -113,8 +112,8 @@ public class RentalService {
     }
 
     @Transactional
-    public List<ItemStoreDto> getAllItemStores() {
-        List<ItemStore> stores = storeRepository.findAllByOrderByIdAsc();
-        return stores.stream().map(ItemStoreDto::new).collect(Collectors.toList());
+    public List<ArticleStoreDto> getAllArticleStores() {
+        List<ArticleStore> stores = storeRepository.findAllByOrderByIdAsc();
+        return stores.stream().map(ArticleStoreDto::new).collect(Collectors.toList());
     }
 }
