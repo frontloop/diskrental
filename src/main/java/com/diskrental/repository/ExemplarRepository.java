@@ -11,5 +11,6 @@ public interface ExemplarRepository extends MongoRepository<Exemplar, String> {
     public List<Exemplar> findByArticleTitle(String title);
     public List<Exemplar> findByArticleId(String id);
     public List<Exemplar> findByArticleIdentificationNumberAndAvailableIsTrue(UUID identificationNumber);
+    public List<Exemplar> findByArticleIdentificationNumberAndAvailableIsTrueAndCurrentStoreStoreNumber(UUID identificationNumber, Integer storeNumber);
     public Exemplar findByIdentificationNumber(UUID identificationNumber);
 }

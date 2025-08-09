@@ -21,13 +21,6 @@ public class Customer {
 
     public Customer() {}
 
-    public Customer(Integer userId, String firstName, String lastName, Address address) {
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-    }
-
     public Customer(CustomerDto customer) {
         this.id = customer.getId();
         this.userId = customer.getUserId();

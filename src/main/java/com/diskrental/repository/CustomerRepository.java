@@ -11,5 +11,6 @@ public interface CustomerRepository extends MongoRepository<Customer, String> {
     public List<Customer> findByLastName(String lastName);
     public List<Customer> findByFirstNameAndLastName(String firstName, String lastName);
     public Customer findByUserId(Integer userId);
+    public List<Customer> findAllByOrderByIdAsc();
 
 }

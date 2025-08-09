@@ -1,5 +1,6 @@
 package com.diskrental.controller;
 
+import com.diskrental.domain.Customer;
 import com.diskrental.domain.Rental;
 import com.diskrental.domain.model.dto.*;
 import com.diskrental.service.RentalService;
@@ -35,9 +36,11 @@ public class RentalController {
         return ResponseEntity.ok(new RentalDto(rental));
     }
 
-    @GetMapping("/exemplars/{articleIdentificationNumber}/available")
-    public ResponseEntity<List<ExemplarDto>> getAvailableExemplars(@PathVariable("articleIdentificationNumber") final UUID articleIdentificationNumber) {
-        List<ExemplarDto> dtos = this.rentalService.getAvailableExemplars(articleIdentificationNumber);
+    @GetMapping("/exemplars/{articleStoreNumber}/{articleIdentificationNumber}/available")
+    public ResponseEntity<List<ExemplarDto>> getAvailableExemplars(
+            @PathVariable("articleIdentificationNumber") final UUID articleIdentificationNumber,
+            @PathVariable("articleStoreNumber") final Integer articleStoreNumber) {
+        List<ExemplarDto> dtos = this.rentalService.getAvailableExemplars(articleIdentificationNumber, articleStoreNumber);
         return ResponseEntity.ok(dtos);
     }
 
@@ -57,6 +60,20 @@ public class RentalController {
     public ResponseEntity<ArticleDto> getArticle(@PathVariable("identificationNumber") final UUID identificationNumber) {
         ArticleDto dto = this.rentalService.getArticle(identificationNumber);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/customers")
+    public ResponseEntity<List<CustomerDto>> getAllCustomers() {
+        List<CustomerDto> dtos = this.rentalService.getAllCustomers();
+        return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/login/{userId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<CustomerDto> create(@PathVariable("userId") final Integer userId) {
+        Customer customer = this.rentalService.login(userId);
+        if (customer == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
+        return ResponseEntity.ok(new CustomerDto(customer));
     }
 
     @GetMapping("/articles")

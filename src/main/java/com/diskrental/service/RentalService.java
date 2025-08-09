@@ -3,7 +3,6 @@ package com.diskrental.service;
 import com.diskrental.domain.*;
 import com.diskrental.domain.model.dto.*;
 import com.diskrental.repository.*;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +32,9 @@ public class RentalService {
 
     private Customer currentLoginData;
 
-    public void loginAsCustomer(Customer customer) {
-        currentLoginData = customer;
+    public Customer login(Integer userId) {
+        currentLoginData = customerRepository.findByUserId(userId);
+        return currentLoginData;
     }
 
     @Transactional
@@ -93,6 +93,14 @@ public class RentalService {
     }
 
     @Transactional
+    public List<CustomerDto> getAllCustomers() {
+        List<Customer> customers = customerRepository.findAllByOrderByIdAsc();
+        return customers.stream().map(CustomerDto::new).collect(Collectors.toList());
+    }
+
+
+
+    @Transactional
     public ArticleDto getArticle(UUID identificationNumber) {
         Article article = articleRepository.findByIdentificationNumber(identificationNumber);
         return new ArticleDto(article);
@@ -105,8 +113,8 @@ public class RentalService {
     }
 
     @Transactional
-    public List<ExemplarDto> getAvailableExemplars(UUID identificationNumber) {
-        List<Exemplar> exemplars = exemplarRepository.findByArticleIdentificationNumberAndAvailableIsTrue(identificationNumber);
+    public List<ExemplarDto> getAvailableExemplars(UUID identificationNumber, Integer storeNumber) {
+        List<Exemplar> exemplars = exemplarRepository.findByArticleIdentificationNumberAndAvailableIsTrueAndCurrentStoreStoreNumber(identificationNumber, storeNumber);
         return exemplars.stream().map(ExemplarDto::new).collect(Collectors.toList());
     }
 

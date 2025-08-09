@@ -56,8 +56,8 @@ public class DiskRentalApplication implements CommandLineRunner {
         Article article2 = articleRepository.save(new Article(null, UUID.randomUUID(), "DVD", "Film 222"));
         Article article3 = articleRepository.save(new Article(null, UUID.randomUUID(), "Blu-ray", "Film 333"));
 
-        Exemplar exemplar1 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, false));
-        Exemplar exemplar2 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 2, LocalDateTime.now().minusMonths(2), store1, false));
+        Exemplar exemplar1 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, true));
+        Exemplar exemplar2 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 2, LocalDateTime.now().minusMonths(2), store1, true));
         Exemplar exemplar3 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, true));
 
         Exemplar exemplar4 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store2, true));
@@ -67,11 +67,21 @@ public class DiskRentalApplication implements CommandLineRunner {
         Exemplar exemplar7 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 2, LocalDateTime.now().minusMonths(1), store1, true));
         Exemplar exemplar8 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store1, true));
 
-        // save a couple of customers
-        Customer customer1 = customerRepository.save(new Customer(111, "Alice", "Smith", addressRepository.save(new Address(null, "Goldbach 1", "11111", "Berlin"))));
-        Customer customer2 = customerRepository.save(new Customer(222, "Bob", "Smith", addressRepository.save(new Address(null, "Lindenweg 33", "22222", "Bad Hersfeld"))));
+        Exemplar exemplar9 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store1, true));
+        Exemplar exemplar10 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 2, LocalDateTime.now().minusMonths(1), store2, true));
+        Exemplar exemplar11 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store2, true));
 
-        rentalService.loginAsCustomer(customer1);
+        Exemplar exemplar12 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 1, LocalDateTime.now().minusMonths(1), store1, true));
+        Exemplar exemplar13 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 2, LocalDateTime.now().minusMonths(1), store1, true));
+        Exemplar exemplar14 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 1, LocalDateTime.now().minusMonths(1), store2, true));
+
+        Exemplar exemplar15 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 1, LocalDateTime.now().minusMonths(1), store2, true));
+        Exemplar exemplar16 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 3, LocalDateTime.now().minusMonths(1), store2, true));
+        Exemplar exemplar17 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 4, LocalDateTime.now().minusMonths(1), store2, true));
+
+        // save a couple of customers
+        Customer customer1 = customerRepository.save(new Customer(null, 111, "Alice", "Smith", addressRepository.save(new Address(null, "Goldbach 1", "11111", "Berlin"))));
+        Customer customer2 = customerRepository.save(new Customer(null, 222, "Bob", "Smith", addressRepository.save(new Address(null, "Lindenweg 33", "22222", "Bad Hersfeld"))));
 
         rentalRepository.save(new Rental(null, exemplar1, customer1, LocalDateTime.now(), null, false, store1, null));
         rentalRepository.save(new Rental(null, exemplar2, customer2, LocalDateTime.now(), null, false, store1, null));
