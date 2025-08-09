@@ -1,6 +1,6 @@
 package com.diskrental.domain;
 
-import com.diskrental.domain.model.dto.ArticleDto;
+import com.diskrental.model.dto.ArticleDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

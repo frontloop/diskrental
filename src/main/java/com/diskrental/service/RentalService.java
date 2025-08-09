@@ -1,7 +1,7 @@
 package com.diskrental.service;
 
 import com.diskrental.domain.*;
-import com.diskrental.domain.model.dto.*;
+import com.diskrental.model.dto.*;
 import com.diskrental.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.diskrental.domain;
 
-import com.diskrental.domain.model.dto.RentalDto;
+import com.diskrental.model.dto.RentalDto;
 import com.mongodb.lang.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

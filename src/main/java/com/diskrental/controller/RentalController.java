@@ -2,7 +2,7 @@ package com.diskrental.controller;
 
 import com.diskrental.domain.Customer;
 import com.diskrental.domain.Rental;
-import com.diskrental.domain.model.dto.*;
+import com.diskrental.model.dto.*;
 import com.diskrental.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

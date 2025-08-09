@@ -1,4 +1,4 @@
-package com.diskrental.domain.model.dto;
+package com.diskrental.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,8 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-public class RentalPostDto {
-    private Integer userId;
+public class ReturnExemplarDto {
     private UUID exemplarIdentificationNumber;
-    private Integer rentalDuration;
+    private Integer storeNumber;
 }

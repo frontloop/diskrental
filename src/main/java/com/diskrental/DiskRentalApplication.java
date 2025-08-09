@@ -49,111 +49,55 @@ public class DiskRentalApplication implements CommandLineRunner {
         articleRepository.deleteAll();
         exemplarRepository.deleteAll();
 
+        /*
+        Create stores
+         */
         ArticleStore store1 = storeRepository.save(new ArticleStore(null, 1, "Store Eins", addressRepository.save(new Address(null, "Kiefernweg 44", "11111", "Berlin"))));
         ArticleStore store2 = storeRepository.save(new ArticleStore(null, 2, "Store Zwei", addressRepository.save(new Address(null, "Blumengasse 8", "22222", "Bad Hersfeld"))));
 
+        /*
+        Create articles
+         */
         Article article1 = articleRepository.save(new Article(null, UUID.randomUUID(), "Blu-ray", "Film 111"));
         Article article2 = articleRepository.save(new Article(null, UUID.randomUUID(), "DVD", "Film 222"));
         Article article3 = articleRepository.save(new Article(null, UUID.randomUUID(), "Blu-ray", "Film 333"));
 
+        /*
+        Create exemplars
+         */
         Exemplar exemplar1 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, false));
         Exemplar exemplar2 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 2, LocalDateTime.now().minusMonths(2), store1, false));
         Exemplar exemplar3 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, true));
 
-        Exemplar exemplar4 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store2, true));
-        Exemplar exemplar5 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store2, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store2, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store2, true));
 
-        Exemplar exemplar6 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store1, true));
-        Exemplar exemplar7 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 2, LocalDateTime.now().minusMonths(1), store1, true));
-        Exemplar exemplar8 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store1, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store1, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 2, LocalDateTime.now().minusMonths(1), store1, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store1, true));
 
-        Exemplar exemplar9 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store1, true));
-        Exemplar exemplar10 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 2, LocalDateTime.now().minusMonths(1), store2, true));
-        Exemplar exemplar11 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store2, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store1, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 2, LocalDateTime.now().minusMonths(1), store2, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article2, 1, LocalDateTime.now().minusMonths(1), store2, true));
 
-        Exemplar exemplar12 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 1, LocalDateTime.now().minusMonths(1), store1, true));
-        Exemplar exemplar13 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 2, LocalDateTime.now().minusMonths(1), store1, true));
-        Exemplar exemplar14 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 1, LocalDateTime.now().minusMonths(1), store2, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 1, LocalDateTime.now().minusMonths(1), store1, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 2, LocalDateTime.now().minusMonths(1), store1, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 1, LocalDateTime.now().minusMonths(1), store2, true));
 
-        Exemplar exemplar15 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 1, LocalDateTime.now().minusMonths(1), store2, true));
-        Exemplar exemplar16 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 3, LocalDateTime.now().minusMonths(1), store2, true));
-        Exemplar exemplar17 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 4, LocalDateTime.now().minusMonths(1), store2, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 1, LocalDateTime.now().minusMonths(1), store2, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 3, LocalDateTime.now().minusMonths(1), store2, true));
+        exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article3, 4, LocalDateTime.now().minusMonths(1), store2, true));
 
-        // save a couple of customers
+        /*
+        Create customers/user
+         */
         Customer customer1 = customerRepository.save(new Customer(null, 111, "Alice", "Smith", addressRepository.save(new Address(null, "Goldbach 1", "11111", "Berlin"))));
         Customer customer2 = customerRepository.save(new Customer(null, 222, "Bob", "Smith", addressRepository.save(new Address(null, "Lindenweg 33", "22222", "Bad Hersfeld"))));
 
+        /*
+        Create some rental entries
+         */
         rentalRepository.save(new Rental(null, exemplar1, customer1, LocalDateTime.now(), null, false, store1, null));
         rentalRepository.save(new Rental(null, exemplar2, customer2, LocalDateTime.now(), null, false, store1, null));
-
-        System.out.println("All exemplars:");
-        System.out.println("-------------------------------");
-        for (Exemplar exemplar : exemplarRepository.findAllByOrderByIdDesc()) {
-            System.out.println(exemplar.getId() + " - " + exemplar.getIdentificationNumber());
-        }
-        System.out.println();
-
-        System.out.println("All rental:");
-        System.out.println("-------------------------------");
-        for (Rental rental : rentalRepository.findAllByOrderByIdDesc()) {
-            System.out.println(rental.getId() + " - " + rental.getExemplar().getIdentificationNumber());
-        }
-        System.out.println();
-
-
-        List<Rental> notClosed = rentalRepository.findByExemplarIdentificationNumberAndClosedIsFalse(exemplar1.getIdentificationNumber());
-
-        System.out.println("Not closed rental found:");
-        System.out.println("-------------------------------");
-        System.out.println(notClosed.size());
-
-        System.out.println();
-
-        System.out.println("Rentals found with customer number 111:");
-        System.out.println("-------------------------------");
-        for (Rental rental : rentalRepository.findByCustomerUserIdAndClosedIsFalse(111)) {
-            System.out.println(rental);
-        }
-        System.out.println();
-
-        List<Customer> foundCustomer = customerRepository.findByFirstNameAndLastName("Bob", "Smith");
-
-        System.out.println("Found customer by first and last name:");
-        System.out.println("-------------------------------");
-        System.out.println(foundCustomer.size());
-
-        System.out.println("All articles:");
-        System.out.println("-------------------------------");
-        for (Article article : articleRepository.findAllByOrderByIdAsc()) {
-            System.out.println(article.getId() + " - " + article.getIdentificationNumber());
-        }
-        System.out.println();
-
-
-        /*System.out.println("Customers found with findAll():");
-        System.out.println("-------------------------------");
-        for (Customer customer : customerRepository.findAll()) {
-            System.out.println(customer);
-        }
-        System.out.println();*/
-
-        /*System.out.println("Address found with findAll():");
-        System.out.println("-------------------------------");
-        for (Address address : addressRepository.findAll()) {
-            System.out.println(address);
-        }
-        System.out.println();*/
-
-        // fetch an individual customer
-        /*System.out.println("Customer found with findByFirstName('Alice'):");
-        System.out.println("--------------------------------");
-        System.out.println(customerRepository.findByFirstName("Alice"));
-
-        System.out.println("Customers found with findByLastName('Smith'):");
-        System.out.println("--------------------------------");
-        for (Customer customer : customerRepository.findByLastName("Smith")) {
-            System.out.println(customer);
-        }*/
     }
-
 }

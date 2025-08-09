@@ -1,4 +1,4 @@
-package com.diskrental.domain.model.dto;
+package com.diskrental.model.dto;
 
 import com.diskrental.domain.Rental;
 import com.mongodb.lang.Nullable;
