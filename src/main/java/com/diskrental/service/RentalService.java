@@ -108,7 +108,7 @@ public class RentalService {
 
     @Transactional
     public List<ArticleDto> getArticles() {
-        List<Article> articles = articleRepository.findAllByOrderByIdDesc();
+        List<Article> articles = articleRepository.findAllByOrderByIdAsc();
         return articles.stream().map(ArticleDto::new).collect(Collectors.toList());
     }
 
@@ -118,6 +118,11 @@ public class RentalService {
         return exemplars.stream().map(ExemplarDto::new).collect(Collectors.toList());
     }
 
+    @Transactional
+    public List<ExemplarDto> getAllExemplars(UUID identificationNumber) {
+        List<Exemplar> exemplars = exemplarRepository.findByArticleIdentificationNumber(identificationNumber);
+        return exemplars.stream().map(ExemplarDto::new).collect(Collectors.toList());
+    }
 
     @Transactional
     public List<RentalDto> getOpenRental() {

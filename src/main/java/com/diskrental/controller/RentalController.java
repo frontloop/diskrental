@@ -44,6 +44,13 @@ public class RentalController {
         return ResponseEntity.ok(dtos);
     }
 
+    @GetMapping("/exemplars/{articleIdentificationNumber}")
+    public ResponseEntity<List<ExemplarDto>> getAvailableExemplars(
+            @PathVariable("articleIdentificationNumber") final UUID articleIdentificationNumber) {
+        List<ExemplarDto> dtos = this.rentalService.getAllExemplars(articleIdentificationNumber);
+        return ResponseEntity.ok(dtos);
+    }
+
     @GetMapping("/open")
     public ResponseEntity<List<RentalDto>> getOpenRental() {
         List<RentalDto> dtos = this.rentalService.getOpenRental();

@@ -56,8 +56,8 @@ public class DiskRentalApplication implements CommandLineRunner {
         Article article2 = articleRepository.save(new Article(null, UUID.randomUUID(), "DVD", "Film 222"));
         Article article3 = articleRepository.save(new Article(null, UUID.randomUUID(), "Blu-ray", "Film 333"));
 
-        Exemplar exemplar1 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, true));
-        Exemplar exemplar2 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 2, LocalDateTime.now().minusMonths(2), store1, true));
+        Exemplar exemplar1 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, false));
+        Exemplar exemplar2 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 2, LocalDateTime.now().minusMonths(2), store1, false));
         Exemplar exemplar3 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, true));
 
         Exemplar exemplar4 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store2, true));
@@ -124,7 +124,7 @@ public class DiskRentalApplication implements CommandLineRunner {
 
         System.out.println("All articles:");
         System.out.println("-------------------------------");
-        for (Article article : articleRepository.findAllByOrderByIdDesc()) {
+        for (Article article : articleRepository.findAllByOrderByIdAsc()) {
             System.out.println(article.getId() + " - " + article.getIdentificationNumber());
         }
         System.out.println();
