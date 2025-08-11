@@ -1,7 +1,6 @@
 package com.diskrental.model.dto;
 
 import com.diskrental.domain.Rental;
-import com.mongodb.lang.Nullable;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -26,7 +25,6 @@ public class RentalDto {
 
     private ArticleStoreDto originStore;
 
-    @Nullable
     private ArticleStoreDto returnStore;
 
     public RentalDto(Rental rental) {

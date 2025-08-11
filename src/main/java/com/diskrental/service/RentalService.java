@@ -51,15 +51,17 @@ public class RentalService {
 
             Exemplar selectedExemplar = exemplars.getFirst();
 
+            rental.setOriginStore(selectedExemplar.getCurrentStore());
+
             selectedExemplar.setAvailable(false);
+
+            selectedExemplar.setCurrentStore(null);
 
             Exemplar savedExemplar = exemplarRepository.save(selectedExemplar);
 
             rental.setExemplar(savedExemplar);
 
             rental.setRentStartDate(LocalDateTime.now());
-
-            rental.setOriginStore(savedExemplar.getCurrentStore());
 
             rental.setClosed(false);
 
@@ -73,17 +75,22 @@ public class RentalService {
         if (rentalList.size() == 1) {
             Rental rental = rentalList.getFirst();
 
+            Exemplar exemplar = exemplarRepository.findByIdentificationNumber(rental.getExemplar().getIdentificationNumber());
+
             ArticleStore store = storeRepository.findByStoreNumber(returnExemplar.getStoreNumber());
             rental.setReturnStore(store);
 
-            rental.getExemplar().setCurrentStore(store);
+            exemplar.setCurrentStore(store);
+            exemplar.setAvailable(true);
+
+            exemplarRepository.save(exemplar);
 
             rental.setReturnDate(LocalDateTime.now());
 
             rental.setClosed(true);
 
-            Exemplar exemplar = exemplarRepository.findByIdentificationNumber(rental.getExemplar().getIdentificationNumber());
             exemplar.setAvailable(true);
+
             exemplarRepository.save(exemplar);
 
             return rentalRepository.save(rental);

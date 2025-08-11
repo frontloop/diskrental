@@ -65,8 +65,8 @@ public class DiskRentalApplication implements CommandLineRunner {
         /*
         Create exemplars
          */
-        Exemplar exemplar1 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, false));
-        Exemplar exemplar2 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 2, LocalDateTime.now().minusMonths(2), store1, false));
+        Exemplar exemplar1 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), null, false));
+        Exemplar exemplar2 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 2, LocalDateTime.now().minusMonths(2), null, false));
         Exemplar exemplar3 = exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store1, true));
 
         exemplarRepository.save(new Exemplar(null, UUID.randomUUID(), article1, 1, LocalDateTime.now().minusMonths(2), store2, true));

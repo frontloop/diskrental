@@ -24,6 +24,7 @@ public class Rental {
 
     private LocalDateTime rentStartDate;
 
+    @Nullable
     private LocalDateTime returnDate;
 
     private boolean closed;
@@ -41,7 +42,9 @@ public class Rental {
         this.returnDate = rentalDto.getReturnDate();
         this.closed = rentalDto.isClosed();
         this.originStore = new ArticleStore(rentalDto.getOriginStore());
-        this.returnStore = new ArticleStore(rentalDto.getReturnStore());
+        if (rentalDto.getReturnStore() != null) {
+            this.returnStore = new ArticleStore(rentalDto.getReturnStore());
+        }
     }
 
     @Override

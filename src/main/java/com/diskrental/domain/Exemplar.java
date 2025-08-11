@@ -1,6 +1,7 @@
 package com.diskrental.domain;
 
 import com.diskrental.model.dto.ExemplarDto;
+import com.mongodb.lang.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Exemplar {
 
     private LocalDateTime inventoriedDate;
 
+    @Nullable
     private ArticleStore currentStore;
 
     private boolean available;
